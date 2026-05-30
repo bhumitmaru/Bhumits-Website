@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhumit Maru — Quant Finance & AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#fff;color:#000;overflow-x:hidden}
+
+.hero-gradient{background:linear-gradient(to right,#000,#000,#555);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.fade-section{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.fade-section.visible{opacity:1;transform:translateY(0)}
+
+.nav-link{position:relative;transition:color 0.2s}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#000;transition:width 0.3s ease}
+.nav-link:hover::after{width:100%}
+.nav-link:hover{color:#000}
+.nav-link.active{color:#000}
+.nav-link.active::after{width:100%}
+
+.glass-card{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:16px;transition:all 0.3s ease}
+.glass-card:hover{border-color:rgba(0,0,0,0.15);transform:translateY(-4px);box-shadow:0 25px 50px -12px rgba(0,0,0,0.08)}
+
+.skill-tag{background:#f5f5f5;border:1px solid rgba(0,0,0,0.1);border-radius:8px;padding:6px 14px;font-size:13px;font-weight:500;color:#000;transition:all 0.2s}
+.skill-tag:hover{background:#000;border-color:#000;color:#fff;transform:translateY(-1px)}
+
+.timeline-line{position:absolute;left:19px;top:40px;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(0,0,0,0.2),rgba(0,0,0,0.05))}
+.timeline-dot{width:10px;height:10px;border-radius:50%;background:#000;box-shadow:0 0 12px rgba(0,0,0,0.15);flex-shrink:0;position:relative;z-index:2}
+
+.section-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:#000}
+
+.project-img{background:#f9f9f9;border:1px solid rgba(0,0,0,0.06);border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+
+.cert-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:10px;padding:12px 18px;font-size:14px;color:#000;transition:all 0.2s}
+.cert-badge:hover{border-color:rgba(0,0,0,0.2);box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+
+.stat-number{font-size:36px;font-weight:600;color:#000;line-height:1}
+
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
+.pulse-dot{animation:pulse-dot 2s ease-in-out infinite}
+
+.mobile-nav{transform:translateX(100%);transition:transform 0.3s ease}
+.mobile-nav.open{transform:translateX(0)}
+
+.award-card{background:#f9f9f9;border:1px solid rgba(0,0,0,0.08)}
+.award-card:hover{border-color:rgba(0,0,0,0.15);box-shadow:0 10px 40px rgba(0,0,0,0.06)}
+
+.proficiency-dot{width:8px;height:8px;border-radius:50%;background:#000}
+.proficiency-dot.empty{background:rgba(0,0,0,0.1)}
+
+.icon-box{width:40px;height:40px;border-radius:12px;background:#f5f5f5;border:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.icon-box:hover{background:#000;border-color:#000}
+.icon-box:hover i{color:#fff !important}
+
+.small-tag{font-size:11px;font-family:'JetBrains Mono',monospace;color:#000;background:#f0f0f0;padding:3px 10px;border-radius:6px;border:1px solid rgba(0,0,0,0.08)}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80" style="backdrop-filter:blur(24px);border-bottom:1px solid rgba(0,0,0,0.06)">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#hero" class="flex items-center gap-2.5 group">
+      <div class="w-8 h-8 rounded-lg bg-black flex items-center justify-center font-semibold text-sm text-white">B</div>
+      <span class="font-medium text-sm text-black">Bhumit Maru</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#about" class="nav-link text-sm text-black/50">About</a>
+      <a href="#education" class="nav-link text-sm text-black/50">Education</a>
+      <a href="#projects" class="nav-link text-sm text-black/50">Projects</a>
+      <a href="#skills" class="nav-link text-sm text-black/50">Skills</a>
+      <a href="mailto:marubhumit0312@gmail.com" class="ml-2 px-5 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-black/80 transition-colors duration-150">Hire Me</a>
+    </div>
+    <button id="mobileMenuBtn" class="md:hidden text-black/50 hover:text-black transition-colors">
+      <i data-lucide="menu" class="w-5 h-5"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div id="mobileNav" class="mobile-nav fixed inset-0 z-50 bg-white/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8">
+  <button id="mobileCloseBtn" class="absolute top-5 right-6 text-black/50 hover:text-black transition-colors">
+    <i data-lucide="x" class="w-6 h-6"></i>
+  </button>
+  <a href="#about" class="mobile-nav-link text-2xl font-medium text-black/60 hover:text-black transition-colors">About</a>
+  <a href="#education" class="mobile-nav-link text-2xl font-medium text-black/60 hover:text-black transition-colors">Education</a>
+  <a href="#projects" class="mobile-nav-link text-2xl font-medium text-black/60 hover:text-black transition-colors">Projects</a>
+  <a href="#skills" class="mobile-nav-link text-2xl font-medium text-black/60 hover:text-black transition-colors">Skills</a>
+  <a href="mailto:marubhumit0312@gmail.com" class="mt-4 px-8 py-3 bg-black text-white font-medium rounded-full">Hire Me</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center px-6 pt-16">
+  <div class="max-w-5xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/10 bg-black/[0.02] mb-8 fade-section">
+      <span class="w-2 h-2 rounded-full bg-black pulse-dot"></span>
+      <span class="text-xs font-medium text-black">Open to opportunities</span>
+    </div>
+
+    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.95] hero-gradient mb-6 fade-section">Bhumit Maru</h1>
+
+    <p class="text-lg sm:text-xl md:text-2xl font-light text-black max-w-2xl mx-auto mb-4 leading-relaxed fade-section">
+      Quant Finance <span class="text-black/30">×</span> AI & Data Science
+    </p>
+
+    <p class="text-sm sm:text-base text-black max-w-xl mx-auto mb-10 leading-relaxed fade-section">
+      Building at the intersection of mathematics, programming, and financial markets. Second year at K. J. Somaiya — crafting trading systems and financial models.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 fade-section">
+      <a href="#projects" class="px-8 py-3.5 bg-black text-white text-sm font-medium rounded-full hover:bg-black/80 transition-colors duration-150 flex items-center gap-2">
+        View Projects
+        <i data-lucide="arrow-down" class="w-4 h-4"></i>
+      </a>
+      <a href="mailto:marubhumit0312@gmail.com" class="px-8 py-3.5 border border-black/15 text-sm font-medium rounded-full text-black hover:bg-black/5 hover:border-black/30 transition-all duration-200 flex items-center gap-2">
+        Get in Touch
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-3 gap-6 sm:gap-8 max-w-2xl mx-auto fade-section">
+      <div class="text-center">
+        <div class="stat-number">8.71</div>
+        <div class="text-xs text-black mt-1.5 font-mono uppercase tracking-wider">SGPA</div>
+      </div>
+      <div class="text-center">
+        <div class="stat-number">7+</div>
+        <div class="text-xs text-black mt-1.5 font-mono uppercase tracking-wider">Languages</div>
+      </div>
+      <div class="text-center">
+        <div class="stat-number">3</div>
+        <div class="text-xs text-black mt-1.5 font-mono uppercase tracking-wider">Projects</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+    <span class="text-[10px] font-mono uppercase tracking-widest text-black">Scroll</span>
+    <div class="w-px h-8 bg-gradient-to-b from-black to-transparent"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="relative py-24 sm:py-32 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="fade-section">
+      <span class="section-label">01 — About</span>
+      <h2 class="text-3xl sm:text-4xl font-medium tracking-tight mt-4 mb-12 hero-gradient">Who I Am</h2>
+    </div>
+
+    <div class="grid md:grid-cols-5 gap-12 md:gap-16 items-start">
+      <div class="md:col-span-3 space-y-6 fade-section">
+        <p class="text-black leading-relaxed text-[15px]">Second year student at <span class="font-semibold">K. J. Somaiya School of Engineering</span> highly interested in finance. Passionate about applying mathematical, analytical, and programming skills to solve real-world financial problems.</p>
+        <p class="text-black leading-relaxed text-[15px]">Skilled in Python, data analysis, and algorithmic thinking. Currently building a career in <span class="font-semibold">quantitative finance</span> and actively developing expertise in financial modelling and trading systems.</p>
+        <p class="text-black leading-relaxed text-[15px]">Currently working with <span class="font-semibold">CA firms and Equity Traders</span> for strategy and work automations.</p>
+
+        <div class="flex flex-wrap gap-x-6 gap-y-3 pt-4 border-t border-black/10">
+          <div class="flex items-center gap-2 text-sm text-black"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i>Mumbai, India</div>
+          <div class="flex items-center gap-2 text-sm text-black"><i data-lucide="mail" class="w-3.5 h-3.5"></i>marubhumit0312@gmail.com</div>
+          <div class="flex items-center gap-2 text-sm text-black"><i data-lucide="phone" class="w-3.5 h-3.5"></i>+91 9082589995</div>
+        </div>
+      </div>
+
+      <div class="md:col-span-2 space-y-6 fade-section">
+        <div class="glass-card p-6">
+          <div class="text-xs font-mono uppercase tracking-wider text-black mb-4">Languages</div>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between"><span class="text-sm text-black">English</span><div class="flex gap-1.5"><div class="proficiency-dot"></div><div class="proficiency-dot"></div><div class="proficiency-dot"></div><div class="proficiency-dot"></div><div class="proficiency-dot"></div></div></div>
+            <div class="flex items-center justify-between"><span class="text-sm text-black">Hindi</span><div class="flex gap-1.5"><div class="proficiency-dot"></div><div class="proficiency-dot"></div><div class="proficiency-dot"></div><div class="proficiency-dot"></div><div class="proficiency-dot"></div></div></div>
+            <div class="flex items-center justify-between"><span class="text-sm text-black">Gujarati</span><div class="flex gap-1.5"><div class="proficiency-dot"></div><div class="proficiency-dot"></div><div class="proficiency-dot"></div><div class="proficiency-dot"></div><div class="proficiency-dot empty"></div></div></div>
+          </div>
+        </div>
+
+        <div class="glass-card p-6">
+          <div class="text-xs font-mono uppercase tracking-wider text-black mb-4">Links</div>
+          <div class="space-y-3">
+            <a href="https://www.linkedin.com/in/bhumitmaru/" target="_blank" class="flex items-center gap-3 text-sm text-black hover:opacity-70 transition-opacity group"><div class="icon-box"><i data-lucide="linkedin" class="w-3.5 h-3.5 text-black"></i></div>LinkedIn<i data-lucide="arrow-up-right" class="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity"></i></a>
+            <a href="mailto:marubhumit0312@gmail.com" class="flex items-center gap-3 text-sm text-black hover:opacity-70 transition-opacity group"><div class="icon-box"><i data-lucide="mail" class="w-3.5 h-3.5 text-black"></i></div>Email<i data-lucide="arrow-up-right" class="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity"></i></a>
+            <a href="tel:+919082589995" class="flex items-center gap-3 text-sm text-black hover:opacity-70 transition-opacity group"><div class="icon-box"><i data-lucide="phone" class="w-3.5 h-3.5 text-black"></i></div>Phone<i data-lucide="arrow-up-right" class="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="relative py-24 sm:py-32 px-6 bg-[#fafafa]">
+  <div class="max-w-6xl mx-auto">
+    <div class="fade-section">
+      <span class="section-label">02 — Education</span>
+      <h2 class="text-3xl sm:text-4xl font-medium tracking-tight mt-4 mb-12 hero-gradient">Academic Background</h2>
+    </div>
+
+    <div class="relative max-w-3xl">
+      <div class="space-y-0">
+        <div class="relative pl-12 pb-12 fade-section">
+          <div class="timeline-line"></div>
+          <div class="absolute left-0 top-1.5 timeline-dot"></div>
+          <div class="glass-card p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+              <h3 class="text-lg font-medium text-black">B.Tech in AI & Data Science</h3>
+              <span class="text-xs font-mono text-white bg-black px-3 py-1 rounded-full w-fit">July 2028</span>
+            </div>
+            <p class="text-sm text-black mb-2">K. J. Somaiya School of Engineering, Mumbai</p>
+            <span class="text-xs font-mono text-black bg-black/5 px-3 py-1 rounded-md">SGPA: 8.71</span>
+          </div>
+        </div>
+
+        <div class="relative pl-12 pb-12 fade-section">
+          <div class="timeline-line"></div>
+          <div class="absolute left-0 top-1.5 timeline-dot" style="background:#333;box-shadow:0 0 12px rgba(0,0,0,0.1)"></div>
+          <div class="glass-card p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+              <h3 class="text-lg font-medium text-black">Diploma in AI & Machine Learning</h3>
+              <span class="text-xs font-mono text-black bg-black/8 px-3 py-1 rounded-full w-fit">June 2025</span>
+            </div>
+            <p class="text-sm text-black mb-2">Fr Agnel Polytechnic, Vashi</p>
+            <p class="text-sm text-black">Passed with distinction. Strong foundation in AI/ML concepts and practical applications.</p>
+          </div>
+        </div>
+
+        <div class="relative pl-12 fade-section">
+          <div class="absolute left-0 top-1.5 timeline-dot" style="background:#666;box-shadow:0 0 12px rgba(0,0,0,0.06)"></div>
+          <div class="glass-card p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+              <h3 class="text-lg font-medium text-black">ICSE – General Education</h3>
+              <span class="text-xs font-mono text-black bg-black/5 px-3 py-1 rounded-full w-fit">May 2022</span>
+            </div>
+            <p class="text-sm text-black mb-2">Omkar International School, Dombivli</p>
+            <span class="text-xs font-mono text-black bg-black/5 px-3 py-1 rounded-md">Aggregate: 85%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="relative py-24 sm:py-32 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="fade-section">
+      <span class="section-label">03 — Projects</span>
+      <h2 class="text-3xl sm:text-4xl font-medium tracking-tight mt-4 mb-4 hero-gradient">What I've Built</h2>
+      <p class="text-black text-base mb-12 max-w-xl">Academic and hobby projects spanning deep learning, full-stack development, and mobile applications.</p>
+    </div>
+
+    <div class="grid md:grid-cols-1 gap-6">
+      <div class="glass-card overflow-hidden fade-section">
+        <div class="grid md:grid-cols-5 gap-0">
+          <div class="md:col-span-2 project-img min-h-[200px] md:min-h-[280px]">
+            <div class="relative z-10 p-8 flex flex-col items-center justify-center h-full">
+              <i data-lucide="scan-eye" class="w-12 h-12 text-black/10 mb-3"></i>
+              <span class="text-xs font-mono text-black/30 uppercase tracking-wider">Deep Learning</span>
+            </div>
+          </div>
+          <div class="md:col-span-3 p-6 sm:p-8 flex flex-col justify-center">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="small-tag">2025</span>
+              <span class="text-xs text-black/20">•</span>
+              <span class="text-xs text-black">Python, TensorFlow</span>
+            </div>
+            <h3 class="text-xl font-medium text-black mb-3">Deepfake Detection System</h3>
+            <p class="text-sm text-black leading-relaxed mb-4">Built a Deep Learning-based system using Python and TensorFlow to classify real and manipulated videos. Implemented model training and video preprocessing pipelines for robust classification across diverse datasets.</p>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-black"><i data-lucide="check" class="w-3.5 h-3.5 text-black/60 mt-0.5 flex-shrink-0"></i>Interactive web interface for real-time video testing</li>
+              <li class="flex items-start gap-2 text-sm text-black"><i data-lucide="check" class="w-3.5 h-3.5 text-black/60 mt-0.5 flex-shrink-0"></i>Result visualization and classification reporting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card overflow-hidden fade-section">
+        <div class="grid md:grid-cols-5 gap-0">
+          <div class="md:col-span-2 project-img min-h-[200px] md:min-h-[280px]">
+            <div class="relative z-10 p-8 flex flex-col items-center justify-center h-full">
+              <i data-lucide="folder-lock" class="w-12 h-12 text-black/10 mb-3"></i>
+              <span class="text-xs font-mono text-black/30 uppercase tracking-wider">Full Stack</span>
+            </div>
+          </div>
+          <div class="md:col-span-3 p-6 sm:p-8 flex flex-col justify-center">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="small-tag">2025</span>
+              <span class="text-xs text-black/20">•</span>
+              <span class="text-xs text-black">Node.js, JavaScript, Google Drive API</span>
+            </div>
+            <h3 class="text-xl font-medium text-black mb-3">Client Document Management Portal</h3>
+            <p class="text-sm text-black leading-relaxed mb-4">Built a secure client portal for Gada Chheda & Co. LLP using Node.js and JavaScript with PAN-based authentication. Integrated Google Drive API for structured document access.</p>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-black"><i data-lucide="check" class="w-3.5 h-3.5 text-black/60 mt-0.5 flex-shrink-0"></i>Search, file preview, and download capabilities</li>
+              <li class="flex items-start gap-2 text-sm text-black"><i data-lucide="check" class="w-3.5 h-3.5 text-black/60 mt-0.5 flex-shrink-0"></i>Responsive UI with seamless navigation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card overflow-hidden fade-section">
+        <div class="grid md:grid-cols-5 gap-0">
+          <div class="md:col-span-2 project-img min-h-[200px] md:min-h-[280px]">
+            <div class="relative z-10 p-8 flex flex-col items-center justify-center h-full">
+              <i data-lucide="mic" class="w-12 h-12 text-black/10 mb-3"></i>
+              <span class="text-xs font-mono text-black/30 uppercase tracking-wider">Mobile App</span>
+            </div>
+          </div>
+          <div class="md:col-span-3 p-6 sm:p-8 flex flex-col justify-center">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="small-tag">2026</span>
+              <span class="text-xs text-black/20">•</span>
+              <span class="text-xs text-black">Android SDK, Signal Processing, ML</span>
+            </div>
+            <h3 class="text-xl font-medium text-black mb-3">Cooker Whistle Counter</h3>
+            <p class="text-sm text-black leading-relaxed mb-4">Built an Android application using microphone input to detect sound patterns and increment counters in real time. Implemented signal processing logic and interactive UI.</p>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-black"><i data-lucide="check" class="w-3.5 h-3.5 text-black/60 mt-0.5 flex-shrink-0"></i>Packaged and deployed as a standalone APK</li>
+              <li class="flex items-start gap-2 text-sm text-black"><i data-lucide="check" class="w-3.5 h-3.5 text-black/60 mt-0.5 flex-shrink-0"></i>Integrating ML models for varied kitchen environments</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="relative py-24 sm:py-32 px-6 bg-[#fafafa]">
+  <div class="max-w-6xl mx-auto">
+    <div class="fade-section">
+      <span class="section-label">04 — Achievement</span>
+      <h2 class="text-3xl sm:text-4xl font-medium tracking-tight mt-4 mb-12 hero-gradient">Standing Out</h2>
+    </div>
+    <div class="max-w-2xl fade-section">
+      <div class="award-card rounded-2xl p-8 sm:p-10 transition-all duration-300">
+        <div class="flex items-start gap-5">
+          <div class="w-14 h-14 rounded-2xl bg-black/5 border border-black/10 flex items-center justify-center flex-shrink-0"><i data-lucide="trophy" class="w-6 h-6 text-black"></i></div>
+          <div>
+            <h3 class="text-lg font-medium text-black mb-2">IMC Prosperity 4 Trading Competition</h3>
+            <p class="text-black text-sm leading-relaxed mb-4">Secured Overall Rank <span class="font-bold">170</span> and India Rank <span class="font-bold">21</span> out of <span class="font-semibold">18,000 teams</span> globally.</p>
+            <div class="flex flex-wrap gap-2"><span class="small-tag">Trading</span><span class="small-tag">Quant</span><span class="small-tag">Competition</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section class="relative py-24 sm:py-32 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="fade-section">
+      <span class="section-label">05 — Certificates</span>
+      <h2 class="text-3xl sm:text-4xl font-medium tracking-tight mt-4 mb-12 hero-gradient">Credentials</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4 max-w-3xl fade-section">
+      <div class="cert-badge"><i data-lucide="award" class="w-4 h-4 text-black/40 flex-shrink-0"></i><div><div class="text-sm text-black">Trading In The Zone - Elementary</div><div class="text-xs text-black/50 mt-0.5">GTF - A Stock Market Institute • ISO 21001:2018</div></div></div>
+      <div class="cert-badge"><i data-lucide="award" class="w-4 h-4 text-black/40 flex-shrink-0"></i><div><div class="text-sm text-black">Algorithmic Trading A-Z</div><div class="text-xs text-black/50 mt-0.5">Python, ML & AWS — Ongoing</div></div></div>
+      <div class="cert-badge"><i data-lucide="award" class="w-4 h-4 text-black/40 flex-shrink-0"></i><div><div class="text-sm text-black">Data Science with Python</div><div class="text-xs text-black/50 mt-0.5">Milestone Institute of Technology</div></div></div>
+      <div class="cert-badge"><i data-lucide="award" class="w-4 h-4 text-black/40 flex-shrink-0"></i><div><div class="text-sm text-black">JPMorgan Chase Quant Research</div><div class="text-xs text-black/50 mt-0.5">Virtual Program — Forage</div></div></div>
+      <div class="cert-badge"><i data-lucide="award" class="w-4 h-4 text-black/40 flex-shrink-0"></i><div><div class="text-sm text-black">Introduction to Data Visualization</div><div class="text-xs text-black/50 mt-0.5">Simplilearn</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="relative py-24 sm:py-32 px-6 bg-[#fafafa]">
+  <div class="max-w-6xl mx-auto">
+    <div class="fade-section">
+      <span class="section-label">06 — Skills</span>
+      <h2 class="text-3xl sm:text-4xl font-medium tracking-tight mt-4 mb-12 hero-gradient">Technical Arsenal</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl">
+      <div class="glass-card p-6 fade-section">
+        <div class="flex items-center gap-3 mb-5"><div class="icon-box"><i data-lucide="code-2" class="w-4 h-4 text-black"></i></div><h3 class="text-sm font-medium text-black">Programming Languages</h3></div>
+        <div class="flex flex-wrap gap-2"><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">C</span><span class="skill-tag">C++</span><span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span><span class="skill-tag">R</span></div>
+      </div>
+      <div class="glass-card p-6 fade-section">
+        <div class="flex items-center gap-3 mb-5"><div class="icon-box"><i data-lucide="layers" class="w-4 h-4 text-black"></i></div><h3 class="text-sm font-medium text-black">Frameworks / Libraries</h3></div>
+        <div class="flex flex-wrap gap-2"><span class="skill-tag">TensorFlow</span><span class="skill-tag">Node.js</span><span class="skill-tag">Android SDK</span><span class="skill-tag">Flutter</span><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span></div>
+      </div>
+      <div class="glass-card p-6 fade-section">
+        <div class="flex items-center gap-3 mb-5"><div class="icon-box"><i data-lucide="wrench" class="w-4 h-4 text-black"></i></div><h3 class="text-sm font-medium text-black">Tools & Platforms</h3></div>
+        <div class="flex flex-wrap gap-2"><span class="skill-tag">Git</span><span class="skill-tag">Google Drive API</span><span class="skill-tag">AWS</span><span class="skill-tag">Android Studio</span><span class="skill-tag">VS Code</span></div>
+      </div>
+      <div class="glass-card p-6 fade-section">
+        <div class="flex items-center gap-3 mb-5"><div class="icon-box"><i data-lucide="brain" class="w-4 h-4 text-black"></i></div><h3 class="text-sm font-medium text-black">Domain Expertise</h3></div>
+        <div class="flex flex-wrap gap-2"><span class="skill-tag">Quantitative Finance</span><span class="skill-tag">Financial Modelling</span><span class="skill-tag">Trading Systems</span><span class="skill-tag">Data Analysis</span><span class="skill-tag">Deep Learning</span><span class="skill-tag">Algorithmic Thinking</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-black/10 py-12 px-6 bg-[#fafafa]">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2.5">
+      <div class="w-7 h-7 rounded-lg bg-black flex items-center justify-center font-semibold text-xs text-white">B</div>
+      <span class="text-sm text-black/40">© 2025 Bhumit Maru. All rights reserved.</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="https://www.linkedin.com/in/bhumitmaru/" target="_blank" class="text-black/40 hover:text-black transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+      <a href="mailto:marubhumit0312@gmail.com" class="text-black/40 hover:text-black transition-colors"><i data-lucide="mail" class="w-4 h-4"></i></a>
+      <a href="#hero" class="text-black/40 hover:text-black transition-colors"><i data-lucide="arrow-up" class="w-4 h-4"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+lucide.createIcons();
+const fadeObserver=new IntersectionObserver(e=>{e.forEach(t=>{if(t.isIntersecting)t.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fade-section').forEach(el=>fadeObserver.observe(el));
+const sections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.nav-link');
+function updateActiveNav(){const s=window.scrollY+100;sections.forEach(sec=>{const t=sec.offsetTop,h=sec.offsetHeight,id=sec.getAttribute('id');if(s>=t&&s<t+h){navLinks.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')===`#${id}`)l.classList.add('active')})}})}
+window.addEventListener('scroll',updateActiveNav);
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{if(window.scrollY>50){navbar.style.background='rgba(255,255,255,0.95)';navbar.style.borderBottomColor='rgba(0,0,0,0.08)'}else{navbar.style.background='rgba(255,255,255,0.8)';navbar.style.borderBottomColor='rgba(0,0,0,0.06)'}});
+const mobileMenuBtn=document.getElementById('mobileMenuBtn'),mobileCloseBtn=document.getElementById('mobileCloseBtn'),mobileNav=document.getElementById('mobileNav');
+mobileMenuBtn.addEventListener('click',()=>mobileNav.classList.add('open'));
+mobileCloseBtn.addEventListener('click',()=>mobileNav.classList.remove('open'));
+document.querySelectorAll('.mobile-nav-link').forEach(l=>{l.addEventListener('click',()=>mobileNav.classList.remove('open'))});
+setTimeout(()=>{document.querySelectorAll('#hero .fade-section').forEach((el,i)=>{setTimeout(()=>el.classList.add('visible'),i*120)})},200);
+</script>
+</body>
+</html>
